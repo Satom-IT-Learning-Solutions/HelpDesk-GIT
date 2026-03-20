@@ -14,13 +14,19 @@ jobs:
       - name: Checkout Source Repo
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
-          fetch-depth: 0
+          fetch-depth: 0 # Récupère tout l'historique pour un push propre
 
-      - name: repo-sync
-        uses: repo-sync/github-sync@v2
-        with:
-          source_repo: "Thomas-TP/HelpDesk-GIT"
-          destination_repo: "Satom-IT-Learning-Solutions/HelpDesk-GIT"
-          destination_branch: "master"
-          github_token: ${{ secrets.SYNC_TOKEN }}
+      - name: Configurer Git
+        run: |
+          git config --global user.email "noreply"
+          git config --global user.name "Thomas-TP"
+
+      - name: Push vers le dépôt de destination
+        env:
+          SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          # Ajout du remote de destination avec le token d'authentification
+          git remote add destination https://x-access-token:${SYNC_TOKEN}@github.com/Satom-IT-Learning-Solutions/HelpDesk-GIT.git
+          
+          # Force push pour s'assurer que les deux dépôts sont identiques
+          git push destination master --force
