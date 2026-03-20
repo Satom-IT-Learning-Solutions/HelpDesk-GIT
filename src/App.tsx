@@ -16,8 +16,6 @@ import AnalyticsDashboard from './components/Analytics/AnalyticsDashboard';
 import SettingsPage from './components/Settings/SettingsPage';
 
 import FaqPage from './pages/FaqPage';
-// import { ShareHandler, usePushNotifications } from './components/PWA/PWAHandlers';
-// import { useFileHandler } from './components/PWA/PWAHandlers';
 import Footer from './components/Layout/Footer';
 import { supabase } from './utils/supabase';
 import OnboardingModal from './components/Users/OnboardingModal';
@@ -25,7 +23,6 @@ import OnboardingModal from './components/Users/OnboardingModal';
 function App() {
   const { user, loading, error } = useUser();
   const { requestNotificationPermission, refresh: refreshNotifications } = useNotifications();
-  // const { } = usePushNotifications(); // TEMPORAIREMENT DÉSACTIVÉ
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -84,8 +81,7 @@ function App() {
   });
   const [subscriptionsInitialized, setSubscriptionsInitialized] = useState(false);
 
-  // Initialize PWA handlers - TEMPORAIREMENT DÉSACTIVÉ
-  // useFileHandler();
+  // Synchroniser activeSection avec l'URL (back/forward navigateur)
 
   // Effet pour la visibilité de la page
   useEffect(() => {

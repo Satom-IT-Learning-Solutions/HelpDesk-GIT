@@ -51,31 +51,28 @@ Plateforme HelpDesk PWA complète, moderne et modulaire, avec gestion avancée d
 - Recharts, Lucide, i18next
 
 ## Structure des dossiers
+
 ```
 project/
-  src/
-    components/   # Composants React (UI, pages, modals...)
-    hooks/        # Hooks personnalisés
-    services/     # Accès API, logique métier
-    lib/          # Types, helpers
-    locales/      # Traductions
-    pages/        # Pages principales
-    utils/        # Fonctions utilitaires
-  public/         # Assets statiques, manifest, icons
-  supabase/       # Fonctions, migrations SQL
-  netlify/        # Fonctions serverless
-  chrome-extension/ # Extension Chrome HelpDesk
+  src/                # Code applicatif React/TypeScript
+    components/       # Composants UI, pages, modals...
+    hooks/            # Hooks personnalisés
+    services/         # Accès API, logique métier
+    lib/              # Types, helpers
+    locales/          # Traductions
+    pages/            # Pages principales
+    utils/            # Fonctions utilitaires
+    types/            # Types globaux
+  public/             # Assets statiques, icons, screenshots, widgets
+  supabase/           # Migrations SQL, fonctions edge (Supabase backend)
+  netlify/            # Config Netlify (Serverless functions)
+  configs à la racine # package.json, tsconfig*, vite.config.ts, tailwind.config.js, .gitignore, netlify.toml, LICENSE, README.md
 ```
 
 ## Sécurité & gestion des droits
 - Authentification Supabase (JWT)
 - Rôles : client, agent, admin, superadmin
 - Règles RLS (Row Level Security) sur toutes les tables sensibles
-- Actions critiques centralisées dans des modales sécurisées
-
-## Contribuer
-- Forkez le repo, créez une branche, ouvrez une PR
-- Merci de respecter la structure et la philosophie du projet
 
 ## Licence
 Voir le fichier `LICENSE`.
