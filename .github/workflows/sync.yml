@@ -1,0 +1,26 @@
+name: Synchronisation du Dépôt
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: repo-sync
+        uses: repo-sync/github-sync@v2
+        with:
+          source_repo: "Thomas-TP/HelpDesk-GIT"
+          destination_repo: "Satom-IT-Learning-Solutions/HelpDesk-GIT"
+          destination_branch: "master"
+          github_token: ${{ secrets.SYNC_TOKEN }}
