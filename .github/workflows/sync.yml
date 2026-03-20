@@ -9,13 +9,15 @@ on:
 
 jobs:
   repo-sync:
+    # On s'assure que l'action ne s'exécute QUE sur le dépôt source
+    if: github.repository == 'Thomas-TP/HelpDesk-GIT'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false # Empêche l'utilisation du GITHUB_TOKEN par défaut
+          persist-credentials: false
 
       - name: Configurer Git
         run: |
@@ -26,10 +28,9 @@ jobs:
         env:
           SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
         run: |
-          # Utilisation d'une URL propre avec le token pour l'authentification
-          # On s'assure de supprimer toute configuration de remote existante pour être propre
-          git remote remote remove destination || true
+          # Nettoyage et ajout du remote de destination
+          git remote remove destination || true
           git remote add destination "https://Thomas-TP:${SYNC_TOKEN}@github.com/Satom-IT-Learning-Solutions/HelpDesk-GIT.git"
           
-          # Tentative de push forcé sur master
+          # Push forcé pour maintenir la synchro
           git push destination master --force
