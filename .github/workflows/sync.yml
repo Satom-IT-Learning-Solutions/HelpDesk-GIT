@@ -14,7 +14,8 @@ jobs:
       - name: Checkout Source Repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Récupère tout l'historique pour un push propre
+          fetch-depth: 0
+          persist-credentials: false # Empêche l'utilisation du GITHUB_TOKEN par défaut
 
       - name: Configurer Git
         run: |
@@ -25,8 +26,10 @@ jobs:
         env:
           SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
         run: |
-          # Ajout du remote de destination avec le token d'authentification
-          git remote add destination https://x-access-token:${SYNC_TOKEN}@github.com/Satom-IT-Learning-Solutions/HelpDesk-GIT.git
+          # Utilisation d'une URL propre avec le token pour l'authentification
+          # On s'assure de supprimer toute configuration de remote existante pour être propre
+          git remote remote remove destination || true
+          git remote add destination "https://Thomas-TP:${SYNC_TOKEN}@github.com/Satom-IT-Learning-Solutions/HelpDesk-GIT.git"
           
-          # Force push pour s'assurer que les deux dépôts sont identiques
+          # Tentative de push forcé sur master
           git push destination master --force
